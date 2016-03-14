@@ -3,4 +3,7 @@
     <string name="all_login">Login</string>
     <string name="all_logout">Logout</string>
     <string name="all_loading">Loading</string>
+    <string name="newtodo_title">Title</string>
+    <string name="newtodo_description">Description</string>
+    <string name="newtodo_save">Save</string>
 </resources>

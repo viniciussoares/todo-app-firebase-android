@@ -1,4 +1,4 @@
-package com.squimer.todo.ui;
+package com.squimer.todo.ui.login;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,6 +9,8 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.squimer.todo.R;
+import com.squimer.todo.ui.BaseActivity;
+import com.squimer.todo.ui.todo.TodoListActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,8 +32,8 @@ public class LoginActivity extends BaseActivity implements Firebase.AuthResultHa
 
         setupFirebase();
 
-        if (firebase.getAuth() != null)
-            startActivity(MainActivity.newIntent(this));
+        if (getFirebase().getAuth() != null)
+            startActivity(TodoListActivity.newIntent(this));
     }
 
     @OnClick(R.id.button_login)
@@ -43,7 +45,7 @@ public class LoginActivity extends BaseActivity implements Firebase.AuthResultHa
             return;
 
         showLoadingDialog();
-        firebase.authWithPassword(email, password, this);
+        getFirebase().authWithPassword(email, password, this);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class LoginActivity extends BaseActivity implements Firebase.AuthResultHa
             return;
 
         dismissVisibleDialog();
-        startActivity(MainActivity.newIntent(this));
+        startActivity(TodoListActivity.newIntent(this));
         finish();
     }
 

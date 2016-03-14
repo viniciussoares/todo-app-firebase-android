@@ -18,35 +18,44 @@ public class BaseActivity extends AppCompatActivity {
         dismissVisibleDialog();
     }
 
-    void setupFirebase() {
+    public void setupFirebase() {
         firebase = new Firebase(getString(R.string.firebase_url));
     }
 
-    void showLoadingDialog() {
+    public void showLoadingDialog() {
         if (dialog instanceof ProgressDialog && dialog.isShowing())
             return;
 
-        if (dialog != null && dialog.isShowing())
-            dismissVisibleDialog();
-
-        dialog = new ProgressDialog(this);
-        ((ProgressDialog) dialog).setMessage(getString(R.string.all_loading));
-        dialog.setCancelable(false);
-        dialog.show();
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.all_loading));
+        progressDialog.setCancelable(false);
+        showDialog(progressDialog);
     }
 
-    void showDialog(Dialog dialog) {
+    public void showDialog(Dialog dialog) {
         dismissVisibleDialog();
 
         this.dialog = dialog;
         this.dialog.show();
     }
 
-    void dismissVisibleDialog() {
+    public void dismissVisibleDialog() {
         if (dialog == null || !dialog.isShowing())
             return;
 
         dialog.dismiss();
         dialog = null;
+    }
+
+    public Firebase getFirebase() {
+        return firebase;
+    }
+
+    public String getUserUid() {
+        try {
+            return getFirebase().getAuth().getUid();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 }
