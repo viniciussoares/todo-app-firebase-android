@@ -10,8 +10,10 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.squimer.todo.R;
+import com.squimer.todo.data.FirebaseManager;
 import com.squimer.todo.model.Todo;
 import com.squimer.todo.ui.BaseActivity;
+import com.squimer.todo.util.Injector;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,13 +27,15 @@ public class NewTodoActivity extends BaseActivity implements Firebase.Completion
     @Bind(R.id.edittext_newtodo_decription)
     EditText descriptionEditText;
 
+    FirebaseManager firebaseManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newtodo);
         ButterKnife.bind(this);
 
-        setupFirebase();
+        firebaseManager = Injector.obtain(this, FirebaseManager.class);
     }
 
     @OnClick(R.id.button_newtodo_save)
@@ -46,9 +50,7 @@ public class NewTodoActivity extends BaseActivity implements Firebase.Completion
         todo.setTitle(title);
         todo.setDescription(description);
 
-        getFirebase().child(Todo.CHILD_NAME)
-                .child(getUserUid())
-                .setValue(todo, this);
+        firebaseManager.saveTodo(todo, this);
     }
 
     @Override

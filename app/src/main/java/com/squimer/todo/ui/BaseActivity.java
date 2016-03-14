@@ -4,22 +4,18 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 
-import com.firebase.client.Firebase;
 import com.squimer.todo.R;
+import com.squimer.todo.data.FirebaseManager;
+import com.squimer.todo.util.Injector;
 
 public class BaseActivity extends AppCompatActivity {
 
     Dialog dialog;
-    Firebase firebase;
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         dismissVisibleDialog();
-    }
-
-    public void setupFirebase() {
-        firebase = new Firebase(getString(R.string.firebase_url));
     }
 
     public void showLoadingDialog() {
@@ -47,15 +43,11 @@ public class BaseActivity extends AppCompatActivity {
         dialog = null;
     }
 
-    public Firebase getFirebase() {
-        return firebase;
-    }
+    @Override
+    public Object getSystemService(String name) {
+        if (Injector.matchesService(name, FirebaseManager.class))
+            return getApplicationContext().getSystemService(name);
 
-    public String getUserUid() {
-        try {
-            return getFirebase().getAuth().getUid();
-        } catch (NullPointerException e) {
-            return null;
-        }
+        return super.getSystemService(name);
     }
 }

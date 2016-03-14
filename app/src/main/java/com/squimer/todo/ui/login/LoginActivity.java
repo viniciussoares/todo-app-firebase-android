@@ -9,8 +9,10 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.squimer.todo.R;
+import com.squimer.todo.data.FirebaseManager;
 import com.squimer.todo.ui.BaseActivity;
 import com.squimer.todo.ui.todo.TodoListActivity;
+import com.squimer.todo.util.Injector;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,15 +26,17 @@ public class LoginActivity extends BaseActivity implements Firebase.AuthResultHa
     @Bind(R.id.edittext_login_password)
     EditText passwordEditText;
 
+    FirebaseManager firebaseManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        setupFirebase();
+        firebaseManager = Injector.obtain(this, FirebaseManager.class);
 
-        if (getFirebase().getAuth() != null)
+        if (firebaseManager.isAuthenticated())
             startActivity(TodoListActivity.newIntent(this));
     }
 
@@ -45,7 +49,8 @@ public class LoginActivity extends BaseActivity implements Firebase.AuthResultHa
             return;
 
         showLoadingDialog();
-        getFirebase().authWithPassword(email, password, this);
+        firebaseManager.getFirebase()
+                .authWithPassword(email, password, this);
     }
 
     @Override
