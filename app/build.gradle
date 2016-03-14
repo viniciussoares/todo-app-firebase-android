@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def final config = [
+        firebaseUrl: "https://todo-app-129381923.firebaseIO.com"
+]
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -10,6 +14,8 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        resValue "string", "firebase_url", "${config.firebaseUrl}"
     }
 
     packagingOptions {
@@ -33,6 +39,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.0'
+    compile "com.android.support:support-v4:23.2.0"
     compile 'com.firebase:firebase-client-android:2.5.2'
     compile 'com.jakewharton:butterknife:7.0.1'
 }
