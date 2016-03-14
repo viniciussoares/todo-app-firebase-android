@@ -1,6 +1,7 @@
 package com.squimer.todo.data;
 
 import com.firebase.client.Firebase;
+import com.firebase.client.Query;
 import com.squimer.todo.model.Todo;
 
 public class FirebaseManager {
@@ -28,8 +29,17 @@ public class FirebaseManager {
     }
 
     public void saveTodo(Todo todo, Firebase.CompletionListener completionListener) {
-        firebase.child(Todo.CHILD_NAME)
+        Firebase todoFirebase = firebase
+                .child(Todo.CHILD_NAME)
                 .child(getUserUid())
-                .setValue(todo, completionListener);
+                .push();
+
+        todoFirebase.setValue(todo, completionListener);
+    }
+
+    public Query getTodoList() {
+        return firebase.child(Todo.CHILD_NAME)
+                .child(getUserUid())
+                .orderByKey();
     }
 }
