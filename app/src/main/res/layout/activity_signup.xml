@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".ui.auth.LoginActivity">
+    tools:context=".ui.auth.SignupActivity">
 
     <EditText
         android:id="@+id/edittext_login_email"
@@ -26,13 +26,6 @@
         android:inputType="textPassword"
         android:hint="@string/all_password"
         android:layout_marginBottom="16dp"
-        />
-
-    <Button
-        android:id="@+id/button_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/all_login"
         />
 
     <Button

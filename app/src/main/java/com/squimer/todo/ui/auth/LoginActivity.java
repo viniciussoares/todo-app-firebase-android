@@ -1,4 +1,4 @@
-package com.squimer.todo.ui.login;
+package com.squimer.todo.ui.auth;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -51,6 +51,11 @@ public class LoginActivity extends BaseActivity implements Firebase.AuthResultHa
         showLoadingDialog();
         firebaseManager.getFirebase()
                 .authWithPassword(email, password, this);
+    }
+
+    @OnClick(R.id.button_signup)
+    void signupClick() {
+        startActivity(SignupActivity.newIntent(this));
     }
 
     @Override
