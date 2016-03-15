@@ -1,8 +1,11 @@
-package com.squimer.todo.model;
+package com.squimer.todo.data.model;
 
 public class Todo {
 
-    public static final String CHILD_NAME = "todo";
+    public static final String ROOT_NAME         = "todo";
+    public static final String CHILD_TITLE       = "title";
+    public static final String CHILD_DESCRIPTION = "description";
+    public static final String CHILD_DONE        = "done";
 
     String title;
     String description;

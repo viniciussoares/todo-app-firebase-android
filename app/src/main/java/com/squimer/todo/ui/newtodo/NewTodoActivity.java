@@ -11,7 +11,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.squimer.todo.R;
 import com.squimer.todo.data.FirebaseManager;
-import com.squimer.todo.model.Todo;
+import com.squimer.todo.data.model.Todo;
 import com.squimer.todo.ui.BaseActivity;
 import com.squimer.todo.util.Injector;
 
